@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="RU">
 <head>
   <title>Симулятор прибыли v0.1</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  
+  
   <style>
   body {
       text-align: center;
@@ -16,36 +21,66 @@
       font-size: 20px;
       background-color: orange;
       border-radius: 10px;
-      border-color: orange;
+      border-color: pink;
+      color: white;
+      
+  }
+  
+  
+    
+  .rebirth {
+      width: 100px;
+      height: 50px;
+      font-size: 20px;
+      background-color: green;
+      border-radius: 10px;
+      border-color: lightgreen;
       color: white;
       
   }
   </style>
   </head>
   <body class="light-theme">
-      <h1>Симулятор прибыли v0.1</h1>
+      <h1>Симулятор прибыли v0.2</h1>
       <h1 id="bal">0</h1>
       <br>
       <h2>Upgrade:</h2>
       <button class="upgrade" id="upgradee"></button>
+       <br>
+       <br>
+       <h2>Rebirth:</h2>
+       <button class="rebirth" id="rebirth"></button>
+      
+      
+      
+      
       
       <br>
       <br>
       Прошу заметить, до версии игры 1.0 баланс, престижи, и весь накопленный процесс
       <br>
       !!!СОХРАНЯТСЯ НЕ БУДУТ!!!
+      <br>
+      (На время бета теста игры, Вы будете получать по 10 монет каждые 200 миллисекунд. С новых версий количество монет будет расти, так как числа будут больше)
   <script>
   let balance = document.getElementById('bal')
   let buttonUpgrade = document.getElementById('upgradee')
+  let buttonRebirth = document.getElementById('rebirth')
   let counter = 0
   let displaycounter = counter
   let rebirth = 1
-  let click = 1*rebirth
+  let click = 10*rebirth
+  let displayClick = click
   let price = 75
   let displayPrice = price
+  let priceRebirth = 1000
+  let displayPriceRebirth = priceRebirth
+  
   
   balance.textContent = displaycounter
   buttonUpgrade.textContent = displayPrice
+  buttonRebirth.textContent = (priceRebirth / 1000).toFixed(0) + 'k'
+  
   
   let interval = setInterval(function(){
       counter += click
@@ -59,7 +94,20 @@
           balance.textContent = displaycounter
       }
       
-      
+                if(counter >= 1000000) {
+          displaycounter = (counter / 1000000).toFixed(1) + 'm'
+          balance.textContent = displaycounter
+      }        
+        
+                if(counter >= 1000000000) {
+          displaycounter = (counter / 1000000000).toFixed(1) + 'b'
+          balance.textContent = displaycounter
+      }        
+        
+                if(counter >= 1000000000000) {
+          displaycounter = (counter / 1000000000000).toFixed(1) + 't'
+          balance.textContent = displaycounter
+      }      
       
   }, 200)
   
@@ -79,10 +127,93 @@ function upgrades() {
           displaycounter = (counter / 1000).toFixed(1) + 'k'
           balance.textContent = displaycounter
       }
+        
+                if(counter >= 1000000) {
+          displaycounter = (counter / 1000000).toFixed(1) + 'm'
+          balance.textContent = displaycounter
+      }        
+        
+                if(counter >= 1000000000) {
+          displaycounter = (counter / 1000000000).toFixed(1) + 'b'
+          balance.textContent = displaycounter
+      }        
+        
+                if(counter >= 1000000000000) {
+          displaycounter = (counter / 1000000000000).toFixed(1) + 't'
+          balance.textContent = displaycounter
+      }        
+        
+        
+                if(price >= 1000) {
+          displayPrice = (price / 1000).toFixed(1) + 'k'
+          buttonUpgrade.textContent = displayPrice
+      }
+        
+                if(price >= 1000000) {
+          displayPrice = (price / 1000000).toFixed(1) + 'm'
+          buttonUpgrade.textContent = displayPrice
+      }        
+        
+                if(price >= 1000000000) {
+          displayPrice = (price / 1000000000).toFixed(1) + 'b'
+          buttonUpgrade.textContent = displayPrice
+      }        
+        
+                if(price >= 1000000000000) {
+          displayPrice = (price / 1000000000000).toFixed(1) + 't'
+          buttonUpgrade.textContent = displayPrice
+      }        
+                
+        
+        
           
       }
+      
+      
+      
+      
   }
 buttonUpgrade.addEventListener('click', upgrades)
+  
+  function rebirths() {
+      if(counter >= priceRebirth) {
+          counter = 0
+          displaycounter = counter
+          balance.textContent = displaycounter
+          price = 75
+          displayPrice = price
+          buttonUpgrade.textContent = displayPrice
+          rebirth += 1
+          click = 10*rebirth
+          priceRebirth *= 5
+          displayPriceRebirth = priceRebirth
+  
+      
+      
+      if(priceRebirth >= 1000) {
+          displayPriceRebirth = (priceRebirth / 1000).toFixed(0) + 'k'
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+      
+            if(priceRebirth >= 1000000) {
+          displayPriceRebirth = (priceRebirth / 1000000).toFixed(0) + 'm'
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+      
+            if(priceRebirth >= 1000000000) {
+          displayPriceRebirth = (priceRebirth / 1000000000).toFixed(0) + 'b'
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+            if(priceRebirth >= 1000000000000) {
+          displayPriceRebirth = (priceRebirth / 1000000000000).toFixed(0) + 't'
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+  }
+  }
+  buttonRebirth.addEventListener('click', rebirths)
   
   </script>
 </body>
