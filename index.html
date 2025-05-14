@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Симулятор прибыли</title>
+  <style>
+  body {
+      text-align: center;
+  }
+  
+  body.light-theme {
+      color: black;
+  }
+  
+  
+  .upgrade {
+      width: 100px;
+      height: 50px;
+      font-size: 20px;
+      background-color: orange;
+      border-radius: 10px;
+      border-color: orange;
+      
+  }
+  </style>
+  </head>
+  <body class="light-theme">
+      <h1>Симулятор прибыли v0.1</h1>
+      <h1 id="bal">0</h1>
+      <br>
+      <h2>Upgrade:</h2>
+      <button class="upgrade" id="upgradee"></button>
+  <script>
+  let balance = document.getElementById('bal')
+  let buttonUpgrade = document.getElementById('upgradee')
+  let counter = 0
+  let displaycounter = counter
+  let rebirth = 1
+  let click = 1*rebirth
+  let price = 75
+  let displayPrice = price
+  
+  balance.textContent = displaycounter
+  buttonUpgrade.textContent = displayPrice
+  
+  let interval = setInterval(function(){
+      counter += click
+      displaycounter = counter
+      
+      balance.textContent = displaycounter.toFixed(0)
+      
+      
+           if(counter >= 1000) {
+          displaycounter = (counter / 1000).toFixed(1) + 'k'
+          balance.textContent = displaycounter
+      }
+      
+      
+      
+  }, 200)
+  
+  
+function upgrades() {
+      if(counter >= price) {
+          counter -= price
+          price *= 1.15
+          click += 1
+          displaycounter = counter
+          displayPrice = price
+          balance.textContent = displaycounter.toFixed(0)
+          buttonUpgrade.textContent = displayPrice.toFixed(0)
+          
+          
+                if(counter >= 1000) {
+          displaycounter = (counter / 1000).toFixed(1) + 'k'
+          balance.textContent = displaycounter
+      }
+          
+      }
+  }
+buttonUpgrade.addEventListener('click', upgrades)
+  
+  </script>
+</body>
+</html>
