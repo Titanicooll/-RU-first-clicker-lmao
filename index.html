@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="RU">
 <head>
-  <title>Симулятор прибыли v0.1</title>
+  <title>Симулятор прибыли v0.3</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
@@ -28,6 +28,17 @@
   
   
     
+  .Srebirth {
+      width: 100px;
+      height: 50px;
+      font-size: 20px;
+      background-color: purple;
+      border-radius: 10px;
+      border-color: blue;
+      color: white;
+      
+  }
+  
   .rebirth {
       width: 100px;
       height: 50px;
@@ -41,8 +52,10 @@
   </style>
   </head>
   <body class="light-theme">
-      <h1>Симулятор прибыли v0.2</h1>
+      <h1>Симулятор прибыли v0.3</h1>
       <h1 id="bal">0</h1>
+      <br>
+      <div id="stataR">Rebirths: 1</div> (1r = x1)
       <br>
       <h2>Upgrade:</h2>
       <button class="upgrade" id="upgradee"></button>
@@ -50,7 +63,10 @@
        <br>
        <h2>Rebirth:</h2>
        <button class="rebirth" id="rebirth"></button>
-      
+      <br>
+      <br>
+      <h2>SuperRebirth:</h2>
+      <button class="Srebirth" id="Srebirth"></button>
       
       
       
@@ -61,25 +77,47 @@
       <br>
       !!!СОХРАНЯТСЯ НЕ БУДУТ!!!
       <br>
-      (На время бета теста игры, Вы будете получать по 10 монет каждые 200 миллисекунд. С новых версий количество монет будет расти, так как числа будут больше)
+      <br>
+      (На время бета теста игры, Вы будете получать по 10qd монет каждые 200 миллисекунд. С новых версий количество монет возможно будет расти, так как числа будут больше)
+     
   <script>
   let balance = document.getElementById('bal')
+  
+  let stataRdisplay = document.getElementById('stataR')
+  
+  
+  
   let buttonUpgrade = document.getElementById('upgradee')
   let buttonRebirth = document.getElementById('rebirth')
+  let buttonSRebirth = document.getElementById('Srebirth')
   let counter = 0
   let displaycounter = counter
   let rebirth = 1
-  let click = 10*rebirth
+  let Srebirth = 1
+  let click = Math.pow(10, 16)*rebirth
   let displayClick = click
   let price = 75
   let displayPrice = price
   let priceRebirth = 1000
   let displayPriceRebirth = priceRebirth
+  let priceSRebirth = 10
+  let displayPriceSRebirth = priceSRebirth
+  
+  suffixes = ["k", "m", "b", "t", "qd", "qt",
+  "sx", "sp", "oc", "nn"]
+  
+  suffixesPrice = [Math.pow(10, 3), Math.pow(10,6), Math.pow(10,9), Math.pow(10,12), Math.pow(10,15), Math.pow(10,18), Math.pow(10,21), Math.pow(10, 24), Math.pow(10,27), Math.pow(10,30)]
+  
+  
   
   
   balance.textContent = displaycounter
   buttonUpgrade.textContent = displayPrice
-  buttonRebirth.textContent = (priceRebirth / 1000).toFixed(0) + 'k'
+  buttonRebirth.textContent = (priceRebirth / suffixesPrice[0]).toFixed(0) + 'k'
+buttonSRebirth.textContent = 10 + suffixes[7]
+stataRdisplay.textContent = "Rebirths: " + rebirth
+  
+  
   
   
   let interval = setInterval(function(){
@@ -89,25 +127,56 @@
       balance.textContent = displaycounter.toFixed(0)
       
       
-           if(counter >= 1000) {
-          displaycounter = (counter / 1000).toFixed(1) + 'k'
+           if(counter >= suffixesPrice[0]) {
+          displaycounter = (counter / suffixesPrice[0]).toFixed(1) + suffixes[0]
           balance.textContent = displaycounter
       }
       
-                if(counter >= 1000000) {
-          displaycounter = (counter / 1000000).toFixed(1) + 'm'
+                if(counter >= suffixesPrice[1]) {
+          displaycounter = (counter / suffixesPrice[1]).toFixed(1) + suffixes[1]
           balance.textContent = displaycounter
       }        
         
-                if(counter >= 1000000000) {
-          displaycounter = (counter / 1000000000).toFixed(1) + 'b'
+                if(counter >= suffixesPrice[2]) {
+          displaycounter = (counter / suffixesPrice[2]).toFixed(1) + suffixes[2]
           balance.textContent = displaycounter
       }        
         
-                if(counter >= 1000000000000) {
-          displaycounter = (counter / 1000000000000).toFixed(1) + 't'
+                if(counter >= suffixesPrice[3]) {
+          displaycounter = (counter / suffixesPrice[3]).toFixed(1) + suffixes[3]
+          balance.textContent = displaycounter
+      }
+      
+                if(counter >= suffixesPrice[4]) {
+          displaycounter = (counter / suffixesPrice[4]).toFixed(1) + suffixes[4]
           balance.textContent = displaycounter
       }      
+
+
+                if(counter >= suffixesPrice[5]) {
+          displaycounter = (counter / suffixesPrice[5]).toFixed(1) + suffixes[5]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[6]) {
+          displaycounter = (counter / suffixesPrice[6]).toFixed(1) + suffixes[6]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[7]) {
+          displaycounter = (counter / suffixesPrice[7]).toFixed(1) + suffixes[7]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[8]) {
+          displaycounter = (counter / suffixesPrice[8]).toFixed(1) + suffixes[8]
+          balance.textContent = displaycounter
+      }      
+
+
       
   }, 200)
   
@@ -123,49 +192,112 @@ function upgrades() {
           buttonUpgrade.textContent = displayPrice.toFixed(0)
           
           
-                if(counter >= 1000) {
-          displaycounter = (counter / 1000).toFixed(1) + 'k'
+          if(counter >= suffixesPrice[0]) {
+          displaycounter = (counter / suffixesPrice[0]).toFixed(1) + suffixes[0]
           balance.textContent = displaycounter
       }
-        
-                if(counter >= 1000000) {
-          displaycounter = (counter / 1000000).toFixed(1) + 'm'
+      
+                if(counter >= suffixesPrice[1]) {
+          displaycounter = (counter / suffixesPrice[1]).toFixed(1) + suffixes[1]
           balance.textContent = displaycounter
       }        
         
-                if(counter >= 1000000000) {
-          displaycounter = (counter / 1000000000).toFixed(1) + 'b'
+                if(counter >= suffixesPrice[2]) {
+          displaycounter = (counter / suffixesPrice[2]).toFixed(1) + suffixes[2]
           balance.textContent = displaycounter
       }        
         
-                if(counter >= 1000000000000) {
-          displaycounter = (counter / 1000000000000).toFixed(1) + 't'
+                if(counter >= suffixesPrice[3]) {
+          displaycounter = (counter / suffixesPrice[3]).toFixed(1) + suffixes[3]
+          balance.textContent = displaycounter
+      }
+      
+                if(counter >= suffixesPrice[4]) {
+          displaycounter = (counter / suffixesPrice[4]).toFixed(1) + suffixes[4]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[5]) {
+          displaycounter = (counter / suffixesPrice[5]).toFixed(1) + suffixes[5]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[6]) {
+          displaycounter = (counter / suffixesPrice[6]).toFixed(1) + suffixes[6]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[7]) {
+          displaycounter = (counter / suffixesPrice[7]).toFixed(1) + suffixes[7]
+          balance.textContent = displaycounter
+      }      
+
+
+                if(counter >= suffixesPrice[8]) {
+          displaycounter = (counter / suffixesPrice[8]).toFixed(1) + suffixes[8]
+          balance.textContent = displaycounter
+      }
+    
+               if(counter >= suffixesPrice[9]) {
+          displaycounter = (counter / suffixesPrice[9]).toFixed(1) + suffixes[9]
           balance.textContent = displaycounter
       }        
         
         
-                if(price >= 1000) {
-          displayPrice = (price / 1000).toFixed(1) + 'k'
+                if(price >= suffixesPrice[0]) {
+          displayPrice = (price / suffixesPrice[0]).toFixed(1) + suffixes[0]
           buttonUpgrade.textContent = displayPrice
       }
         
-                if(price >= 1000000) {
-          displayPrice = (price / 1000000).toFixed(1) + 'm'
+                if(price >= suffixesPrice[1]) {
+          displayPrice = (price / suffixesPrice[1]).toFixed(1) + suffixes[1]
           buttonUpgrade.textContent = displayPrice
-      }        
+      }
         
-                if(price >= 1000000000) {
-          displayPrice = (price / 1000000000).toFixed(1) + 'b'
+                if(price >= suffixesPrice[2]) {
+          displayPrice = (price / suffixesPrice[2]).toFixed(1) + suffixes[2]
           buttonUpgrade.textContent = displayPrice
-      }        
-        
-                if(price >= 1000000000000) {
-          displayPrice = (price / 1000000000000).toFixed(1) + 't'
-          buttonUpgrade.textContent = displayPrice
-      }        
+      }
                 
+                if(price >= suffixesPrice[3]) {
+          displayPrice = (price / suffixesPrice[3]).toFixed(1) + suffixes[3]
+          buttonUpgrade.textContent = displayPrice
+      }
         
+                if(price >= suffixesPrice[4]) {
+          displayPrice = (price / suffixesPrice[4]).toFixed(1) + suffixes[4]
+          buttonUpgrade.textContent = displayPrice
+      }
         
+          
+                if(price >= suffixesPrice[5]) {
+          displayPrice = (price / suffixesPrice[5]).toFixed(1) + suffixes[5]
+          buttonUpgrade.textContent = displayPrice
+      }
+      
+                if(price >= suffixesPrice[6]) {
+          displayPrice = (price / suffixesPrice[6]).toFixed(1) + suffixes[6]
+          buttonUpgrade.textContent = displayPrice
+      }
+      
+                if(price >= suffixesPrice[7]) {
+          displayPrice = (price / suffixesPrice[7]).toFixed(1) + suffixes[7]
+          buttonUpgrade.textContent = displayPrice
+      }      
+      
+                if(price >= suffixesPrice[8]) {
+          displayPrice = (price / suffixesPrice[8]).toFixed(1) + suffixes[8]
+          buttonUpgrade.textContent = displayPrice
+      }          
+          
+                if(price >= suffixesPrice[9]) {
+          displayPrice = (price / suffixesPrice[9]).toFixed(1) + suffixes[9]
+          buttonUpgrade.textContent = displayPrice
+      }
+
           
       }
       
@@ -183,37 +315,115 @@ buttonUpgrade.addEventListener('click', upgrades)
           price = 75
           displayPrice = price
           buttonUpgrade.textContent = displayPrice
-          rebirth += 1
-          click = 10*rebirth
+          rebirth += 1*Srebirth
+          click = Math.pow(10, 16)*rebirth
           priceRebirth *= 5
           displayPriceRebirth = priceRebirth
-  
+          stataRdisplay.textContent = "Rebirths: " + rebirth
       
       
-      if(priceRebirth >= 1000) {
-          displayPriceRebirth = (priceRebirth / 1000).toFixed(0) + 'k'
+      if(priceRebirth >= suffixesPrice[0]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[0]).toFixed(0) + suffixes[0]
           buttonRebirth.textContent = displayPriceRebirth
       }
       
-            if(priceRebirth >= 1000000) {
-          displayPriceRebirth = (priceRebirth / 1000000).toFixed(0) + 'm'
+            if(priceRebirth >= suffixesPrice[1]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[1]).toFixed(0) + suffixes[1]
           buttonRebirth.textContent = displayPriceRebirth
       }
       
-            if(priceRebirth >= 1000000000) {
-          displayPriceRebirth = (priceRebirth / 1000000000).toFixed(0) + 'b'
-          buttonRebirth.textContent = displayPriceRebirth
-      }
-
-            if(priceRebirth >= 1000000000000) {
-          displayPriceRebirth = (priceRebirth / 1000000000000).toFixed(0) + 't'
+            if(priceRebirth >= suffixesPrice[2]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[2]).toFixed(0) + suffixes[2]
           buttonRebirth.textContent = displayPriceRebirth
       }
 
+            if(priceRebirth >= suffixesPrice[3]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[3]).toFixed(0) + suffixes[3]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
 
+            if(priceRebirth >= suffixesPrice[4]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[4]).toFixed(0) + suffixes[4]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+            if(priceRebirth >= suffixesPrice[5]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[5]).toFixed(0) + suffixes[5]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+            if(priceRebirth >= suffixesPrice[6]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[6]).toFixed(0) + suffixes[6]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+      
+      
+      
+      
+            if(priceRebirth >= suffixesPrice[7]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[7]).toFixed(0) + suffixes[7]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+      
+      
+            if(priceRebirth >= suffixesPrice[8]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[8]).toFixed(0) + suffixes[8]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+            if(priceRebirth >= suffixesPrice[9]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[9]).toFixed(0) + suffixes[9]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+
+
+
+
+      
   }
   }
   buttonRebirth.addEventListener('click', rebirths)
+
+  
+  function Srebirths() {
+       if(counter >= Math.pow(10, 25)) {
+          counter = 0
+          displaycounter = counter
+          balance.textContent = displaycounter
+          price = 75
+          displayPrice = 75
+          buttonUpgrade.textContent = displayPrice
+          rebirths = 1
+          priceRebirth = 1000
+          displayPriceRebirth = 1 + suffixes[0]
+          buttonRebirth.textContent = displayPriceRebirth
+          Srebirth += 1
+          priceSRebirth *= 100
+          
+            if(priceSRebirth >= suffixesPrice[0]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[0]).toFixed(0) + suffixes[8]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            }
+            
+            if(priceSRebirth >= suffixesPrice[1]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[1]).toFixed(0) + suffixes[9]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            }
+            if(priceSRebirth >= suffixesPrice[2]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[2]).toFixed(0) + suffixes[10]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            }            
+      }
+      
+  }
+buttonSRebirth.addEventListener("click", Srebirths)  
+  
+  
   
   </script>
 </body>
