@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="RU">
 <head>
-  <title>Симулятор прибыли v0.3</title>
+  <title>Cash simulator v0.4</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
@@ -49,13 +49,49 @@
       color: white;
       
   }
+  
+  .coin {
+      width: 30px;
+      position: relative;
+      left: 15px;
+      bottom: 8px;
+      display: inline;
+  }
+  
+  .val {
+      display: inline;
+      position: relative;
+      bottom: 15px;
+      left: 10px;
+      
+  }
+  
+  .Stat {
+      color: gray;
+  }
+  
+  .Docum {
+      height: 30px;
+      color: white;
+      background-color: darkblue;
+      border-radius: 10px;
+      border-color: blue;
+  }
+  
   </style>
   </head>
-  <body class="light-theme">
-      <h1>Симулятор прибыли v0.3</h1>
-      <h1 id="bal">0</h1>
+  <body>
+      <h1>Cash simulator v0.4</h1>
+      <h2>Coins:</h2>
+      <h1 class="val" id="bal">0</h1>
+      <img src="Coin.png" class="coin"/>
       <br>
-      <div id="stataR">Rebirths: 1</div> (1r = x1)
+      <span class="Stat">
+      <h2>Your statistic:</h2>
+      <h3 id="stataC">Click: </h3>
+      <h3 id=stataR>Rebirths: 1</h3>
+      <h3 id="stataSR">SuperRebirths: 1</h3>
+      </span>
       <br>
       <h2>Upgrade:</h2>
       <button class="upgrade" id="upgradee"></button>
@@ -67,24 +103,27 @@
       <br>
       <h2>SuperRebirth:</h2>
       <button class="Srebirth" id="Srebirth"></button>
-      
-      
-      
-      
       <br>
       <br>
-      Прошу заметить, до версии игры 1.0 баланс, престижи, и весь накопленный процесс
+      <button class="Docum" id="contacts">О нас</button>
+      <button class="Docum" id="new">Список изменений</button>
+      <button class=Docum id="options">Настройки</button>
       <br>
-      !!!СОХРАНЯТСЯ НЕ БУДУТ!!!
-      <br>
-      <br>
-      (На время бета теста игры, Вы будете получать по 10qd монет каждые 200 миллисекунд. С новых версий количество монет возможно будет расти, так как числа будут больше)
+      <span id="TextButton"></span>
      
   <script>
   let balance = document.getElementById('bal')
   
   let stataRdisplay = document.getElementById('stataR')
   
+  let stataCdisplay = document.getElementById('stataC')
+  
+  let stataSRdisplay = document.getElementById('stataSR')
+  
+  let contacts = document.getElementById('contacts')
+  let news = document.getElementById('new')
+  let options = document.getElementById('options')
+  let text = document.getElementById('TextButton')
   
   
   let buttonUpgrade = document.getElementById('upgradee')
@@ -94,7 +133,7 @@
   let displaycounter = counter
   let rebirth = 1
   let Srebirth = 1
-  let click = Math.pow(10, 16)*rebirth
+  let click = Math.pow(10, 30)*rebirth
   let displayClick = click
   let price = 75
   let displayPrice = price
@@ -103,10 +142,15 @@
   let priceSRebirth = 10
   let displayPriceSRebirth = priceSRebirth
   
-  suffixes = ["k", "m", "b", "t", "qd", "qt",
-  "sx", "sp", "oc", "nn"]
+  let diamond = 0
+  let rebirthD = 1
+  let clickD = 1 * rebirthD
   
-  suffixesPrice = [Math.pow(10, 3), Math.pow(10,6), Math.pow(10,9), Math.pow(10,12), Math.pow(10,15), Math.pow(10,18), Math.pow(10,21), Math.pow(10, 24), Math.pow(10,27), Math.pow(10,30)]
+  
+  suffixes = ["k", "m", "b", "t", "qd", "qt",
+  "sx", "sp", "oc", "nn", "dc", "ud", "td", "qutd", "qn", "sd"]
+  
+  suffixesPrice = [Math.pow(10, 3), Math.pow(10,6), Math.pow(10,9), Math.pow(10,12), Math.pow(10,15), Math.pow(10,18), Math.pow(10,21), Math.pow(10, 24), Math.pow(10,27), Math.pow(10,30), Math.pow(10, 33), Math.pow(10, 36), Math.pow(10, 39), Math.pow(10, 42), Math.pow(10, 45), Math.pow(10, 48), Math.pow(10, 51)]
   
   
   
@@ -115,15 +159,13 @@
   buttonUpgrade.textContent = displayPrice
   buttonRebirth.textContent = (priceRebirth / suffixesPrice[0]).toFixed(0) + 'k'
 buttonSRebirth.textContent = 10 + suffixes[7]
-stataRdisplay.textContent = "Rebirths: " + rebirth
   
-  
+  stataCdisplay.textContent = "Click: " + click
   
   
   let interval = setInterval(function(){
       counter += click
       displaycounter = counter
-      
       balance.textContent = displaycounter.toFixed(0)
       
       
@@ -176,7 +218,37 @@ stataRdisplay.textContent = "Rebirths: " + rebirth
           balance.textContent = displaycounter
       }      
 
+                if(counter >= suffixesPrice[9]) {
+          displaycounter = (counter / suffixesPrice[9]).toFixed(1) + suffixes[9]
+          balance.textContent = displaycounter
+      }      
 
+                if(counter >= suffixesPrice[10]) {
+          displaycounter = (counter / suffixesPrice[10]).toFixed(1) + suffixes[10]
+          balance.textContent = displaycounter
+      }      
+                if(counter >= suffixesPrice[11]) {
+          displaycounter = (counter / suffixesPrice[11]).toFixed(1) + suffixes[11]
+          balance.textContent = displaycounter
+      }      
+                if(counter >= suffixesPrice[12]) {
+          displaycounter = (counter / suffixesPrice[12]).toFixed(1) + suffixes[12]
+          balance.textContent = displaycounter
+      }      
+                if(counter >= suffixesPrice[13]) {
+          displaycounter = (counter / suffixesPrice[13]).toFixed(1) + suffixes[13]
+          balance.textContent = displaycounter
+      } 
+      
+                if(counter >= suffixesPrice[14]) {
+          displaycounter = (counter / suffixesPrice[14]).toFixed(1) + suffixes[14]
+          balance.textContent = displaycounter
+      }
+
+               if(counter >= suffixesPrice[15]) {
+          displaycounter = (counter / suffixesPrice[15]).toFixed(1) + suffixes[15]
+          balance.textContent = displaycounter
+      }
       
   }, 200)
   
@@ -185,12 +257,13 @@ function upgrades() {
       if(counter >= price) {
           counter -= price
           price *= 1.05
-          click += 1
+          click += Math.pow(10,30)
           displaycounter = counter
           displayPrice = price
           balance.textContent = displaycounter.toFixed(0)
           buttonUpgrade.textContent = displayPrice.toFixed(0)
           
+          stataCdisplay.textContent = "Click: " + click 
           
           if(counter >= suffixesPrice[0]) {
           displaycounter = (counter / suffixesPrice[0]).toFixed(1) + suffixes[0]
@@ -246,7 +319,33 @@ function upgrades() {
           balance.textContent = displaycounter
       }        
         
-        
+                if(counter >= suffixesPrice[10]) {
+          displaycounter = (counter / suffixesPrice[10]).toFixed(1) + suffixes[10]
+          balance.textContent = displaycounter
+      }      
+                if(counter >= suffixesPrice[11]) {
+          displaycounter = (counter / suffixesPrice[11]).toFixed(1) + suffixes[11]
+          balance.textContent = displaycounter
+      }      
+                if(counter >= suffixesPrice[12]) {
+          displaycounter = (counter / suffixesPrice[12]).toFixed(1) + suffixes[12]
+          balance.textContent = displaycounter
+      }      
+                if(counter >= suffixesPrice[13]) {
+          displaycounter = (counter / suffixesPrice[13]).toFixed(1) + suffixes[13]
+          balance.textContent = displaycounter
+      } 
+      
+                if(counter >= suffixesPrice[14]) {
+          displaycounter = (counter / suffixesPrice[14]).toFixed(1) + suffixes[14]
+          balance.textContent = displaycounter
+      }
+
+               if(counter >= suffixesPrice[15]) {
+          displaycounter = (counter / suffixesPrice[15]).toFixed(1) + suffixes[15]
+          balance.textContent = displaycounter
+      }
+    
                 if(price >= suffixesPrice[0]) {
           displayPrice = (price / suffixesPrice[0]).toFixed(1) + suffixes[0]
           buttonUpgrade.textContent = displayPrice
@@ -297,7 +396,35 @@ function upgrades() {
           displayPrice = (price / suffixesPrice[9]).toFixed(1) + suffixes[9]
           buttonUpgrade.textContent = displayPrice
       }
+      
+                if(price >= suffixesPrice[10]) {
+          displayPrice = (price / suffixesPrice[10]).toFixed(1) + suffixes[10]
+          buttonUpgrade.textContent = displayPrice
+      }      
+                if(price >= suffixesPrice[11]) {
+          displayPrice = (price / suffixesPrice[11]).toFixed(1) + suffixes[11]
+          buttonUpgrade.textContent = displayPrice
+      }      
+                if(price >= suffixesPrice[12]) {
+          displayPrice = (price / suffixesPrice[12]).toFixed(1) + suffixes[12]
+          buttonUpgrade.textContent = displayPrice
+      }      
+                if(price >= suffixesPrice[13]) {
+          displayPrice = (price / suffixesPrice[13]).toFixed(1) + suffixes[13]
+          buttonUpgrade.textContent = displayPrice
+      } 
+      
+                if(price >= suffixesPrice[14]) {
+          displayPrice = (price / suffixesPrice[14]).toFixed(1) + suffixes[14]
+          buttonUpgrade.textContent = displayPrice
+      }
 
+               if(price >= suffixesPrice[15]) {
+          displayPrice = (price / suffixesPrice[15]).toFixed(1) + suffixes[15]
+          buttonUpgrade.textContent = displayPrice
+      }
+            
+      
           
       }
       
@@ -316,11 +443,12 @@ buttonUpgrade.addEventListener('click', upgrades)
           displayPrice = price
           buttonUpgrade.textContent = displayPrice
           rebirth += 1*Srebirth
-          click = Math.pow(10, 16)*rebirth
+          click = Math.pow(10, 30)*rebirth
           priceRebirth *= 5
           displayPriceRebirth = priceRebirth
           stataRdisplay.textContent = "Rebirths: " + rebirth
       
+      stataCdisplay.textContent = "Click: " + click
       
       if(priceRebirth >= suffixesPrice[0]) {
           displayPriceRebirth = (priceRebirth / suffixesPrice[0]).toFixed(0) + suffixes[0]
@@ -380,30 +508,70 @@ buttonUpgrade.addEventListener('click', upgrades)
       }
 
 
+            if(priceRebirth >= suffixesPrice[10]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[10]).toFixed(0) + suffixes[10]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
 
 
+            if(priceRebirth >= suffixesPrice[11]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[11]).toFixed(0) + suffixes[11]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
 
+
+            if(priceRebirth >= suffixesPrice[12]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[12]).toFixed(0) + suffixes[12]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+            if(priceRebirth >= suffixesPrice[13]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[13]).toFixed(0) + suffixes[13]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+            if(priceRebirth >= suffixesPrice[14]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[14]).toFixed(0) + suffixes[14]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
+
+
+            if(priceRebirth >= suffixesPrice[15]) {
+          displayPriceRebirth = (priceRebirth / suffixesPrice[15]).toFixed(0) + suffixes[15]
+          buttonRebirth.textContent = displayPriceRebirth
+      }
 
       
   }
   }
   buttonRebirth.addEventListener('click', rebirths)
 
+  let goida = Math.pow(10, 25)
   
   function Srebirths() {
-       if(counter >= Math.pow(10, 25)) {
+       if(counter >= goida) {
           counter = 0
           displaycounter = counter
           balance.textContent = displaycounter
           price = 75
           displayPrice = 75
           buttonUpgrade.textContent = displayPrice
-          rebirths = 1
+          rebirth = 1
           priceRebirth = 1000
           displayPriceRebirth = 1 + suffixes[0]
           buttonRebirth.textContent = displayPriceRebirth
           Srebirth += 1
           priceSRebirth *= 100
+          click = Math.pow(10,30)
+          goida *= 100
+          
+          stataCdisplay.textContent = "Click: " + click
+          
+          stataRdisplay.textContent = "Rebirths: " + rebirth
+          
+          stataSRdisplay.textContent = "SuperRebirths: " + Srebirth
           
             if(priceSRebirth >= suffixesPrice[0]) {
                 displayPriceSRebirth = (priceSRebirth / suffixesPrice[0]).toFixed(0) + suffixes[8]
@@ -417,13 +585,54 @@ buttonUpgrade.addEventListener('click', upgrades)
             if(priceSRebirth >= suffixesPrice[2]) {
                 displayPriceSRebirth = (priceSRebirth / suffixesPrice[2]).toFixed(0) + suffixes[10]
                 buttonSRebirth.textContent = displayPriceSRebirth
+            }
+            
+            if(priceSRebirth >= suffixesPrice[3]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[3]).toFixed(0) + suffixes[11]
+                buttonSRebirth.textContent = displayPriceSRebirth
             }            
+            
+            if(priceSRebirth >= suffixesPrice[4]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[4]).toFixed(0) + suffixes[12]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            }            
+ 
+            if(priceSRebirth >= suffixesPrice[5]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[5]).toFixed(0) + suffixes[13]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            } 
+
+            if(priceSRebirth >= suffixesPrice[6]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[6]).toFixed(0) + suffixes[14]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            }
+
+            if(priceSRebirth >= suffixesPrice[7]) {
+                displayPriceSRebirth = (priceSRebirth / suffixesPrice[7]).toFixed(0) + suffixes[15]
+                buttonSRebirth.textContent = displayPriceSRebirth
+            } 
+            
+            
       }
       
   }
 buttonSRebirth.addEventListener("click", Srebirths)  
   
+function newses() {
+    text.textContent = 
+    "Прошу заметить, до версии игры 1.0 баланс, престижи, и весь накопленный процесс !!!СОХРАНЯТСЯ НЕ БУДУТ!!! (На время бета теста игры, Вы будете получать по 1nn монет каждые 200 миллисекунд. С новых версий количество монет возможно будет расти, так как числа будут больше)"
+}  
   
+news.addEventListener("click", newses)
+
+function contactes() {
+    text.textContent = "Разработчик: TCP и AI (tg: @Titanicool)"
+    
+}
+contacts.addEventListener("click", contactes)
+
+
+
   
   </script>
 </body>
