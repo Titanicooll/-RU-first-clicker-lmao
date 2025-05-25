@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="RU">
 <head>
-  <title>Cash simulator v0.4</title>
+  <title>Cash simulator v0.5</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   
   
   <style>
-  body {
+    body.dark-theme {
       text-align: center;
       color: white;
       background-color: black;
   }
+  
+      body.light-theme {
+      text-align: center;
+      color: black;
+      background-color: white;
+  }
+  
   
   
   .upgrade {
@@ -77,11 +84,33 @@
       border-radius: 10px;
       border-color: blue;
   }
+
+  .dark-theme .light {
+      display: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 5px;
+      border-color: white;
+      background-color: white;
+      color: black;
+  }
   
+  .light-theme .light {
+      display: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 5px;
+      border-color: black;
+      background-color: black;
+      color: white;
+      
+  }
+
+
   </style>
   </head>
-  <body>
-      <h1>Cash simulator v0.4</h1>
+  <body class="dark-theme">
+      <h1>Cash simulator v0.5</h1>
       <h2>Coins:</h2>
       <h1 class="val" id="bal">0</h1>
       <img src="Coin.png" class="coin"/>
@@ -109,7 +138,10 @@
       <button class="Docum" id="new">Список изменений</button>
       <button class=Docum id="options">Настройки</button>
       <br>
+      <br>
       <span id="TextButton"></span>
+     
+      <button id="light" class="light">Свет. тема</button></button>
      
   <script>
   let balance = document.getElementById('bal')
@@ -125,6 +157,7 @@
   let options = document.getElementById('options')
   let text = document.getElementById('TextButton')
   
+  let switchl = document.getElementById('light')
   
   let buttonUpgrade = document.getElementById('upgradee')
   let buttonRebirth = document.getElementById('rebirth')
@@ -134,6 +167,7 @@
   let rebirth = 1
   let Srebirth = 1
   let click = Math.pow(10, 30)*rebirth
+  let formatclick = click.toFixed(0)
   let displayClick = click
   let price = 75
   let displayPrice = price
@@ -160,7 +194,7 @@
   buttonRebirth.textContent = (priceRebirth / suffixesPrice[0]).toFixed(0) + 'k'
 buttonSRebirth.textContent = 10 + suffixes[7]
   
-  stataCdisplay.textContent = "Click: " + click
+  stataCdisplay.textContent = "Click: " + formatclick
   
   
   let interval = setInterval(function(){
@@ -258,12 +292,13 @@ function upgrades() {
           counter -= price
           price *= 1.05
           click += Math.pow(10,30)
+          formatclick = click.toFixed(0)
           displaycounter = counter
           displayPrice = price
           balance.textContent = displaycounter.toFixed(0)
           buttonUpgrade.textContent = displayPrice.toFixed(0)
           
-          stataCdisplay.textContent = "Click: " + click 
+          stataCdisplay.textContent = "Click: " + formatclick 
           
           if(counter >= suffixesPrice[0]) {
           displaycounter = (counter / suffixesPrice[0]).toFixed(1) + suffixes[0]
@@ -444,11 +479,12 @@ buttonUpgrade.addEventListener('click', upgrades)
           buttonUpgrade.textContent = displayPrice
           rebirth += 1*Srebirth
           click = Math.pow(10, 30)*rebirth
+          formatclick = click.toFixed(0)
           priceRebirth *= 5
           displayPriceRebirth = priceRebirth
           stataRdisplay.textContent = "Rebirths: " + rebirth
       
-      stataCdisplay.textContent = "Click: " + click
+      stataCdisplay.textContent = "Click: " + formatclick
       
       if(priceRebirth >= suffixesPrice[0]) {
           displayPriceRebirth = (priceRebirth / suffixesPrice[0]).toFixed(0) + suffixes[0]
@@ -565,9 +601,10 @@ buttonUpgrade.addEventListener('click', upgrades)
           Srebirth += 1
           priceSRebirth *= 100
           click = Math.pow(10,30)
+          formatclick = click.toFixed(0)
           goida *= 100
           
-          stataCdisplay.textContent = "Click: " + click
+          stataCdisplay.textContent = "Click: " + formatclick
           
           stataRdisplay.textContent = "Rebirths: " + rebirth
           
@@ -621,17 +658,44 @@ buttonSRebirth.addEventListener("click", Srebirths)
 function newses() {
     text.textContent = 
     "Прошу заметить, до версии игры 1.0 баланс, престижи, и весь накопленный процесс !!!СОХРАНЯТСЯ НЕ БУДУТ!!! (На время бета теста игры, Вы будете получать по 1nn монет каждые 200 миллисекунд. С новых версий количество монет возможно будет расти, так как числа будут больше)"
+    switchl.style.display = 'none'
 }  
   
 news.addEventListener("click", newses)
 
 function contactes() {
     text.textContent = "Разработчик: TCP и AI (tg: @Titanicool)"
+    switchl.style.display ='none'
+}
+
+contacts.addEventListener("click", contactes) 
+    
+function optionss() {
+    
+    text.textContent = ""
+    
+    switchl.style.display = 'block'
+}
+
+options.addEventListener("click", optionss)
+
+
+
+const body = document.body
+
+function lights(){
+    if(body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme')
+        body.classList.add('light-theme')
+        switchl.textContent = "Темн. тема"
+    } else {
+        body.classList.remove('light-theme')
+        body.classList.add('dark-theme')
+        switchl.textContent = "Свет. тема"
+    }
     
 }
-contacts.addEventListener("click", contactes)
-
-
+switchl.addEventListener("click", lights)
 
   
   </script>
