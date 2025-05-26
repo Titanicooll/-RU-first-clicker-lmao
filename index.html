@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="RU">
 <head>
-  <title>Cash simulator v0.5</title>
+  <title>Cash simulator v1.0</title>
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
@@ -87,7 +87,7 @@
 
   .dark-theme .light {
       display: none;
-      width: 50px;
+      width: 350px;
       height: 50px;
       border-radius: 5px;
       border-color: white;
@@ -97,7 +97,7 @@
   
   .light-theme .light {
       display: none;
-      width: 50px;
+      width: 350px;
       height: 50px;
       border-radius: 5px;
       border-color: black;
@@ -106,11 +106,21 @@
       
   }
 
+    .del {
+      display: none;
+      width: 350px;
+      height: 50px;
+      border-radius: 5px;
+      border-color: white;
+      background-color: red;
+      color: white;
+      
+  }
 
   </style>
   </head>
   <body class="dark-theme">
-      <h1>Cash simulator v0.5</h1>
+      <h1>Cash simulator v1.0(pre-release)</h1>
       <h2>Coins:</h2>
       <h1 class="val" id="bal">0</h1>
       <img src="Coin.png" class="coin"/>
@@ -141,7 +151,9 @@
       <br>
       <span id="TextButton"></span>
      
-      <button id="light" class="light">Свет. тема</button></button>
+      <button id="light" class="light">Свет. тема</button>
+      <br>
+       <button id="del" class="del">Сброс. Стат.</button>
      
   <script>
   let balance = document.getElementById('bal')
@@ -158,6 +170,7 @@
   let text = document.getElementById('TextButton')
   
   let switchl = document.getElementById('light')
+  let deleted = document.getElementById('del')
   
   let buttonUpgrade = document.getElementById('upgradee')
   let buttonRebirth = document.getElementById('rebirth')
@@ -166,7 +179,7 @@
   let displaycounter = counter
   let rebirth = 1
   let Srebirth = 1
-  let click = Math.pow(10, 30)*rebirth
+  let click = Math.pow(10, 1)*rebirth
   let formatclick = click.toFixed(0)
   let displayClick = click
   let price = 75
@@ -186,7 +199,12 @@
   
   suffixesPrice = [Math.pow(10, 3), Math.pow(10,6), Math.pow(10,9), Math.pow(10,12), Math.pow(10,15), Math.pow(10,18), Math.pow(10,21), Math.pow(10, 24), Math.pow(10,27), Math.pow(10,30), Math.pow(10, 33), Math.pow(10, 36), Math.pow(10, 39), Math.pow(10, 42), Math.pow(10, 45), Math.pow(10, 48), Math.pow(10, 51)]
   
-  
+   let playerData = {
+       counter
+       
+   }
+   
+   data()
   
   
   balance.textContent = displaycounter
@@ -196,93 +214,106 @@ buttonSRebirth.textContent = 10 + suffixes[7]
   
   stataCdisplay.textContent = "Click: " + formatclick
   
+  function data() {
+      const saveData = localStorage.getItem('playerClickerData')
+         if(saveData) {
+             playerData = {...playerData, ...JSON.parse(saveData)
+             }
+
+  }
+  }
+localStorage.setItem('playerClickerData', JSON.stringify(playerData))
+
+
   
   let interval = setInterval(function(){
-      counter += click
-      displaycounter = counter
+      playerData.counter += click
+      displaycounter = playerData.counter
       balance.textContent = displaycounter.toFixed(0)
       
+
       
-           if(counter >= suffixesPrice[0]) {
-          displaycounter = (counter / suffixesPrice[0]).toFixed(1) + suffixes[0]
+           if(playerData.counter >= suffixesPrice[0]) {
+          displaycounter = (playerData.counter / suffixesPrice[0]).toFixed(1) + suffixes[0]
           balance.textContent = displaycounter
       }
       
-                if(counter >= suffixesPrice[1]) {
-          displaycounter = (counter / suffixesPrice[1]).toFixed(1) + suffixes[1]
+                if(playerData.counter >= suffixesPrice[1]) {
+          displaycounter = (playerData.counter / suffixesPrice[1]).toFixed(1) + suffixes[1]
           balance.textContent = displaycounter
       }        
         
-                if(counter >= suffixesPrice[2]) {
-          displaycounter = (counter / suffixesPrice[2]).toFixed(1) + suffixes[2]
+                if(playerData.counter >= suffixesPrice[2]) {
+          displaycounter = (playerData.counter / suffixesPrice[2]).toFixed(1) + suffixes[2]
           balance.textContent = displaycounter
       }        
         
-                if(counter >= suffixesPrice[3]) {
-          displaycounter = (counter / suffixesPrice[3]).toFixed(1) + suffixes[3]
+                if(playerData.counter >= suffixesPrice[3]) {
+          displaycounter = (playerData.counter / suffixesPrice[3]).toFixed(1) + suffixes[3]
           balance.textContent = displaycounter
       }
       
-                if(counter >= suffixesPrice[4]) {
-          displaycounter = (counter / suffixesPrice[4]).toFixed(1) + suffixes[4]
+                if(playerData.counter >= suffixesPrice[4]) {
+          displaycounter = (playerData.counter / suffixesPrice[4]).toFixed(1) + suffixes[4]
           balance.textContent = displaycounter
       }      
 
 
-                if(counter >= suffixesPrice[5]) {
-          displaycounter = (counter / suffixesPrice[5]).toFixed(1) + suffixes[5]
+                if(playerData.counter >= suffixesPrice[5]) {
+          displaycounter = (playerData.counter / suffixesPrice[5]).toFixed(1) + suffixes[5]
           balance.textContent = displaycounter
       }      
 
 
-                if(counter >= suffixesPrice[6]) {
-          displaycounter = (counter / suffixesPrice[6]).toFixed(1) + suffixes[6]
+                if(playerData.counter >= suffixesPrice[6]) {
+          displaycounter = (playerData.counter / suffixesPrice[6]).toFixed(1) + suffixes[6]
           balance.textContent = displaycounter
       }      
 
 
-                if(counter >= suffixesPrice[7]) {
-          displaycounter = (counter / suffixesPrice[7]).toFixed(1) + suffixes[7]
+                if(playerData.counter >= suffixesPrice[7]) {
+          displaycounter = (playerData.counter / suffixesPrice[7]).toFixed(1) + suffixes[7]
           balance.textContent = displaycounter
       }      
 
 
-                if(counter >= suffixesPrice[8]) {
-          displaycounter = (counter / suffixesPrice[8]).toFixed(1) + suffixes[8]
+                if(playerData.counter >= suffixesPrice[8]) {
+          displaycounter = (playerData.counter / suffixesPrice[8]).toFixed(1) + suffixes[8]
           balance.textContent = displaycounter
       }      
 
-                if(counter >= suffixesPrice[9]) {
-          displaycounter = (counter / suffixesPrice[9]).toFixed(1) + suffixes[9]
+                if(playerData.counter >= suffixesPrice[9]) {
+          displaycounter = (playerData.counter / suffixesPrice[9]).toFixed(1) + suffixes[9]
           balance.textContent = displaycounter
       }      
 
-                if(counter >= suffixesPrice[10]) {
-          displaycounter = (counter / suffixesPrice[10]).toFixed(1) + suffixes[10]
+                if(playerData.counter >= suffixesPrice[10]) {
+          displaycounter = (playerData.counter / suffixesPrice[10]).toFixed(1) + suffixes[10]
           balance.textContent = displaycounter
       }      
-                if(counter >= suffixesPrice[11]) {
-          displaycounter = (counter / suffixesPrice[11]).toFixed(1) + suffixes[11]
+                if(playerData.counter >= suffixesPrice[11]) {
+          displaycounter = (playerData.counter / suffixesPrice[11]).toFixed(1) + suffixes[11]
           balance.textContent = displaycounter
       }      
-                if(counter >= suffixesPrice[12]) {
-          displaycounter = (counter / suffixesPrice[12]).toFixed(1) + suffixes[12]
+                if(playerData.counter >= suffixesPrice[12]) {
+          displaycounter = (playerData.counter / suffixesPrice[12]).toFixed(1) + suffixes[12]
           balance.textContent = displaycounter
       }      
-                if(counter >= suffixesPrice[13]) {
-          displaycounter = (counter / suffixesPrice[13]).toFixed(1) + suffixes[13]
+                if(playerData.counter >= suffixesPrice[13]) {
+          displaycounter = (playerData.counter / suffixesPrice[13]).toFixed(1) + suffixes[13]
           balance.textContent = displaycounter
       } 
       
-                if(counter >= suffixesPrice[14]) {
-          displaycounter = (counter / suffixesPrice[14]).toFixed(1) + suffixes[14]
+                if(playerData.counter >= suffixesPrice[14]) {
+          displaycounter = (playerData.counter / suffixesPrice[14]).toFixed(1) + suffixes[14]
           balance.textContent = displaycounter
       }
 
-               if(counter >= suffixesPrice[15]) {
-          displaycounter = (counter / suffixesPrice[15]).toFixed(1) + suffixes[15]
+               if(playerData.counter >= suffixesPrice[15]) {
+          displaycounter = (playerData.counter / suffixesPrice[15]).toFixed(1) + suffixes[15]
           balance.textContent = displaycounter
       }
+      
       
   }, 200)
   
@@ -659,13 +690,15 @@ function newses() {
     text.textContent = 
     "Прошу заметить, до версии игры 1.0 баланс, престижи, и весь накопленный процесс !!!СОХРАНЯТСЯ НЕ БУДУТ!!! (На время бета теста игры, Вы будете получать по 1nn монет каждые 200 миллисекунд. С новых версий количество монет возможно будет расти, так как числа будут больше)"
     switchl.style.display = 'none'
+    deleted.style.display = 'none'
 }  
   
 news.addEventListener("click", newses)
 
 function contactes() {
     text.textContent = "Разработчик: TCP и AI (tg: @Titanicool)"
-    switchl.style.display ='none'
+    switchl.style.display = 'none'
+    deleted.style.display = 'none'
 }
 
 contacts.addEventListener("click", contactes) 
@@ -675,6 +708,7 @@ function optionss() {
     text.textContent = ""
     
     switchl.style.display = 'block'
+    deleted.style.display = 'block'
 }
 
 options.addEventListener("click", optionss)
@@ -697,7 +731,24 @@ function lights(){
 }
 switchl.addEventListener("click", lights)
 
-  
-  </script>
+function clearGame() {
+    localStorage.removeItem('playerClickerData')
+    playerData = {
+        counter: 0
+    }
+}
+
+function del() {
+    if(confirm('Вы точно хотите сбросить прогресс? Все начнется ЗАНОВО!')) {
+        clearGame()
+    }else{
+        
+    }
+}
+deleted.addEventListener("click", del)
+
+
+
+</script>
 </body>
 </html>
